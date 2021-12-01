@@ -7,6 +7,23 @@
     <title>Sök rätt skola</title>
   </head>
   <body>
+    <h2 id="Header">Lista för elever</h2>
+    <ul id="userList"></ul>
+    <h2>Sortera elever efter vilken utbildning dem valt:</h2>
+    <div>
+      <input type="radio" name="program" value="Frontend" id="val1" />
+      <label for="val">Frontend</label>
+    </div>
+    <div>
+      <input type="radio" name="program" value="Backend" id="val2" />
+      <label for="val2">Backend</label>
+    </div>
+    <div>
+      <input type="radio" name="program" value=".NET" id="val" />
+      <label for="val3">.NET</label>
+    </div>
+    <br />
+    <button id="showProgram">Visa Elever efter program</button>
     <script src="main.js"></script>
   </body>
 </html>
