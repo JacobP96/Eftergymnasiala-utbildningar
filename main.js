@@ -7,16 +7,52 @@ let getData = async (URL) => {
     let students = await getData("https://api.mocki.io/v2/01047e91/students");
     let school = await getData("https://api.mocki.io/v2/01047e91/schools");
    
-  
+  // skriver ut alla elever
     students.forEach((student) => {
       let li = document.createElement("li");
       li.textContent = `${student.firstName} ${student.lastName}`
       document.querySelector("#userList").appendChild(li);
+
+      // filtrera
+
+    let filterSchool = school.filter((school) => {
+      let hobbyExists = false;
+      student.hobbies.forEach((hobby) => {
+        if (school.activities.includes(hobby)) {
+          hobbyExists = true;
+        }
+      });
+      return school.programmes.includes(student.programme) && hobbyExists;
     });
+
+    // // OM skolan har elevens utbildning och en av elevens hobbies
+    filterSchool.forEach((schools) => {
+      let listOfSchools = document.createElement("p");
+      listOfSchools.textContent = `${schools.name}`;
+      listOfSchools.style.color = "green";
+      listOfSchools.style.display = "none";
+      li.appendChild(listOfSchools);
+
+      // klickar man på namnet så
+      li.addEventListener("click", (event) => {
+        if (listOfSchools.style.display === "none") {
+          listOfSchools.style.display = "block";
+        } else {
+          listOfSchools.style.display = "none";
+        }
+        // ändrar headertext när man klickat på ett namn
+        let ProgramlastNameHeader = document.querySelector("#Header");
+        ProgramlastNameHeader.textContent =
+          "Skolor som passar eleven du klickat på:";
+      });
+    });
+  });
+    
     let button = document.querySelector("#showProgram");
 let radioBtn = document.querySelectorAll("input[name='program']");
 let studentList = document.querySelector("#userList");
 
+// filtrerar elever efter vilket programm som dem går med hjälp av radio buttons
 button.addEventListener("click", () => {
     let program;
     studentList.innerHTML = "";
@@ -84,7 +120,7 @@ button.addEventListener("click", () => {
   lastNameButton.addEventListener("click", () => {
     studentList.innerHTML = "";
 
-    // function för att sortera förnamn
+    // function för att sortera efternamn
     function compareLastNames(a, b) {
       if (a.lastName < b.lastName) {
         return -1;
@@ -108,3 +144,5 @@ button.addEventListener("click", () => {
 }
 
       findData()
+
+     
