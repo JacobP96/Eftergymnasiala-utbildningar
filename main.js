@@ -1,3 +1,8 @@
+function refreshPage() {
+      location.reload();
+  
+}
+
 let getData = async (URL) => {
     let response = await fetch(URL);
     let data = await response.json();
@@ -7,14 +12,19 @@ let getData = async (URL) => {
     let students = await getData("https://api.mocki.io/v2/01047e91/students");
     let school = await getData("https://api.mocki.io/v2/01047e91/schools");
    
+let Header2 = document.querySelector("#secondHeader");
+let newBtn = document.querySelector("#sort");
+
+
+
   // skriver ut alla elever
-    students.forEach((student) => {
-      let li = document.createElement("li");
-      li.textContent = `${student.firstName} ${student.lastName}`
-      document.querySelector("#userList").appendChild(li);
+  students.forEach((student) => {
+    let li = document.createElement("li");
+    li.textContent = `${student.firstName} ${student.lastName}`
+    document.querySelector("#userList").appendChild(li);
+    
 
       // filtrera
-
     let filterSchool = school.filter((school) => {
       let hobbyExists = false;
       student.hobbies.forEach((hobby) => {
@@ -29,7 +39,7 @@ let getData = async (URL) => {
     filterSchool.forEach((schools) => {
       let listOfSchools = document.createElement("p");
       listOfSchools.textContent = `${schools.name}`;
-      listOfSchools.style.color = "green";
+      listOfSchools.style.color = "blue";
       listOfSchools.style.display = "none";
       li.appendChild(listOfSchools);
 
@@ -72,6 +82,7 @@ button.addEventListener("click", () => {
       ProgramHeader.textContent = ` Eleverna går utbildningen ${student.programme}`
       let studentList = document.querySelector("#userList");
       studentList.appendChild(studentName);
+      Header2.style.display = "none";
     });
   });
   // filtrerar listan efter ålder, yngst först i listan
@@ -87,6 +98,7 @@ button.addEventListener("click", () => {
       ProgramAgeHeader.textContent = ` Eleverna är sorterade efter ålder `;
       let studentAgeList = document.querySelector("#userList");
       studentAgeList.appendChild(studentAgeName);
+      Header2.style.display = "none";
     });
   });
   // sortera efter förnamn, bokstavsordning
@@ -114,6 +126,7 @@ button.addEventListener("click", () => {
       ProgramNameHeader.textContent = ` Eleverna har sorterats i bokstavsordning baserat på förnamn `;
       let studentNameList = document.querySelector("#userList");
       studentNameList.appendChild(studentfirstName);
+      Header2.style.display = "none";
     });
   });
   let lastNameButton = document.querySelector("#showlastName");
@@ -139,8 +152,11 @@ button.addEventListener("click", () => {
       ProgramlastNameHeader.textContent = ` Eleverna har sorterats i bokstavsordning baserat på efternamn `;
       let studentLastNameList = document.querySelector("#userList");
       studentLastNameList.appendChild(studentlastName);
+      Header2.style.display = "none";
     });
-  });
+  
+});
+
 }
 
       findData()
