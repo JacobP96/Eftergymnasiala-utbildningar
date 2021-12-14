@@ -143,7 +143,7 @@ button.addEventListener("click", () => {
       }
       return 0;
     }
-    // skriver ut eleverna i bokstavsordning baserat på förnamnet
+    // skriver ut eleverna i bokstavsordning baserat på efternamnet
     let checkLastName = students.sort(compareLastNames);
     checkLastName.forEach((studentName) => {
       let studentlastName = document.createElement("li");
